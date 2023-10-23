@@ -1,0 +1,17 @@
+h1 {
+    border: 2px #eee solid;
+    color: brown;
+    text-align: center;
+    padding: 10px;
+}
+@media print {
+    h1 {
+        display:none;
+    }
+    .navbar-brand {
+        display: none;
+    }
+    .logo-epf {
+        display: none;
+    }
+}

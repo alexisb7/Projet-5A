@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Générer les QR codes {% endblock %}</h1>
+    <form method="post">
+        <div class="form-group">
+            <label for="name">Spécifiez le nom de l'entreprise (obligatoire)</label>
+            <input type="text" name="name" class="form-control" value="{{ request.form['name'] }}" required></input>
+        </div>
+        <div class="form-group">
+            <label for="logo">Ajouter le logo de l'entreprise au QR code (facultatif)</label>
+            <input type="text" placeholder="Veuillez entrer le chemin d'accès complet de l'image au format png ou jpeg (exemple : /Users/user/Documents/image.png)" name="logo" class="form-control" value="{{ request.form['logo'] }}" accept=".jpg, .jpeg, .png"></input>
+        </div>
+            <button type="submit" class="btn btn-primary">Générer QR Code</button>
+        </div>
+    </form>
+{% endblock %}
