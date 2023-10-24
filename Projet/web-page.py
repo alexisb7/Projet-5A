@@ -24,7 +24,12 @@ def qrcode():
 @app.route('/reponse', methods=('GET', 'POST'))
 def reponse():
     if request.method == "POST":
-        db_file = request.form['excel_file']
+        add_db = request.form['add_db']
+        dashboard = request.form['dashboard']
+        if add_db:
+            return render_template('add_db.html')
+        elif dashboard:
+            return render_template('dashboard.html')
     return render_template('reponse.html')
 
 @app.route('/add_db', methods=('GET', 'POST'))
