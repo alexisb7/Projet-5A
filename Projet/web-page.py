@@ -2,7 +2,9 @@ from flask import Flask, render_template, request, url_for, flash, redirect
 from script import QRCode_generator, QRCode_generator_logo
 
 app = Flask(__name__)
-#app.config['SECRET_KEY'] = 'D}hC~9a,KK2Jx_#5V=)L-4VGq8.rgpcz5/h8B?4J36T36ut'
+app.config['SECRET_KEY'] = 'D}hC~9a,KK2Jx_#5V=)L-4VGq8.rgpcz5/h8B?4J36T36ut'
+
+db_file = "./database.txt"
 
 @app.route('/', methods=('GET', 'POST'))
 def index():
@@ -21,21 +23,21 @@ def index():
 def qrcode():
     return render_template('qrcode.html')
 
-@app.route('/reponse', methods=('GET', 'POST'))
-def reponse():
-    if request.method == "POST":
-        add_db = request.form['add_db']
-        dashboard = request.form['dashboard']
-        if add_db:
-            return render_template('add_db.html')
-        elif dashboard:
-            return render_template('dashboard.html')
-    return render_template('reponse.html')
-
 @app.route('/add_db', methods=('GET', 'POST'))
 def add_db():
+    if request.method == "POST":
+        excel_file = request.form['excel_file']
+        file = open(db_file, "a")
+        file.write(excel_file)
+        file.close()
+        flash('Base de donnée ajoutée !', 'success')
     return render_template('add_db.html')
 
 @app.route('/dashboard', methods=('GET', 'POST'))
 def dashboard():
+    db = open(db_file, "r")
+    excel_file = db.read()
+    if excel_file == "":
+        flash('Veuillez ajouter une base de données pour visualiser le dashboard.', 'warning')
+
     return render_template('dashboard.html')

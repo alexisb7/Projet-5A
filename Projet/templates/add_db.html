@@ -2,10 +2,11 @@
 
 {% block content %}
     <h1>{% block title %} Enregistrer la base de données {% endblock %}</h1>
-    <form>
+    <form method="post">
         <div class="form-group">
             <label for="excel_file">Entrez le chemin d'accès au fichier excel de réponse à l'enquête : (obligatoire)</label>
             <input type="text" name="excel_file" class="form-control" placeholder="Veuillez entrer le chemin d'accès complet au fichier excel en format xlsx (exemple : /Users/user/Documents/file.xlsx)" accept=".xlsx" value="{{ request.form['excel_file'] }}" required></input>
         </div>
+        <button type="submit" class="btn btn-primary">Enregistrer comme base de données</button>
     </form>
 {% endblock %}

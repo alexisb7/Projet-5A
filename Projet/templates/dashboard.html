@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Dashboard</h1>
+    <h1>{% block title %} Dashboard {% endblock %}</h1>
     <div class="form-group">
-        <label for="excel_file">Entrez le chemin d'accès au fichier excel de réponse à l'enquête : (obligatoire)</label>
-        <input type="text" name="excel_file" class="form-control" placeholder="Veuillez entrer le chemin d'accès complet au fichier excel en format xlsx (exemple : /Users/user/Documents/file.xlsx)" accept=".xlsx" value="{{ request.form['excel_file'] }}" required></input>
+        
     </div>
 {% endblock %}
