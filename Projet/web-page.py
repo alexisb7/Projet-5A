@@ -40,6 +40,19 @@ def dashboard():
     if excel_file == "":
         flash('Veuillez ajouter une base de données pour visualiser le dashboard.', 'warning')
     if request.method == "POST":
-        img = printAverage(db)
-        return(render_template('dashboard.html'))
+        dashboard_to_display = request.form['dashboard']
+        if dashboard_to_display=="prc_freq":
+            img = printPrcFreq(db_file)
+            return render_template('prc_freq.html', img=img)
+        elif dashboard_to_display=="average":
+            img = printAverage(db_file)
+            return render_template('average.html', img=img)
     return render_template('dashboard.html')
+
+@app.route('/prc_freq')
+def prc_freq():
+    return render_template('prc_freq.html')
+
+@app.route('/average')
+def average():
+    return render_template('average.html')

@@ -47,7 +47,9 @@ def QRCode_generator_logo(name, logo):
     return file
 
 def printAllStudents(db_file, name):
-    df_survey = pd.read_excel(db_file)
+    db = open(db_file, "r")
+    excel_file = db.read()
+    df_survey = pd.read_excel(excel_file)
     students = []
     time_start = []
     time_end = []
@@ -62,7 +64,9 @@ def printAllStudents(db_file, name):
     return df_student
 
 def printTopEnteprise(db_file):
-    df_survey = pd.read_excel(db_file)
+    db = open(db_file, "r")
+    excel_file = db.read()
+    df_survey = pd.read_excel(excel_file)
     all_enterprise = list(set(df_survey["Nom de l'entreprise"]))
     nb_visits = []
     for enterprise in all_enterprise:
@@ -78,7 +82,9 @@ def printTopEnteprise(db_file):
     return df_top_enterprise
 
 def printAverage(db_file):
-    df_survey = pd.read_excel(db_file)
+    db = open(db_file, "r")
+    excel_file = db.read()
+    df_survey = pd.read_excel(excel_file)    
     all_enterprise = list(set(df_survey["Nom de l'entreprise"]))
     average = []
     for enterprise in all_enterprise:
@@ -91,19 +97,22 @@ def printAverage(db_file):
         average.append(note/nb_students)
     df_average = pd.DataFrame(all_enterprise, index=None, columns=['Entreprise'])
     df_average.insert(1, 'Moyenne appréciation', average, True)
-    df_average = df_average.sort_values(by='Moyenne appréciation', ascending=False)
+    df_average = df_average.sort_values(by='Moyenne appréciation')
     df_average = df_average.reset_index(drop=True)
+    plt.switch_backend('Agg') 
     plt.figure(figsize=(12,6))
     plt.bar(df_average['Entreprise'], df_average['Moyenne appréciation'])
     plt.title("Moyenne des notes d’appréciation par entreprise")
     plt.xlabel("Entreprise")
     plt.ylabel("Moyenne des notes")
-    img = "./Projet/static/img/average_by_enterprise.png"
+    img = "./static/img/average_by_enterprise.png"
     plt.savefig(img)
     return img
 
 def printPrcFreq(db_file):    
-    df_survey = pd.read_excel(db_file)
+    db = open(db_file, "r")
+    excel_file = db.read()
+    df_survey = pd.read_excel(excel_file)
     all_enterprise = list(set(df_survey["Nom de l'entreprise"]))
     all_visitors = list(set(df_survey['Nom']))
     nb_visitors = len(all_visitors)
@@ -118,11 +127,12 @@ def printPrcFreq(db_file):
     df_prc_freq.insert(1, 'Pourcentage de fréquentation', prc_freq, True)
     df_prc_freq = df_prc_freq.sort_values(by='Pourcentage de fréquentation')
     df_prc_freq = df_prc_freq.reset_index(drop=True)
+    plt.switch_backend('Agg') 
     plt.figure(figsize=(12,6))
     plt.barh(df_prc_freq['Entreprise'], df_prc_freq['Pourcentage de fréquentation'])
     plt.title("Pourcentage de fréquentation par entreprise")
     plt.xlabel("Entreprise")
     plt.ylabel("Pourcentage de fréquentation")
-    img = "./Projet/static/img/prcfreq_by_enterprise.png"
+    img = "./static/img/prcfreq_by_enterprise.png"
     plt.savefig(img)
     return img
