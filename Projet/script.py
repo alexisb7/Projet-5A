@@ -6,6 +6,7 @@ from qrcode.image.styles.moduledrawers.pil import RoundedModuleDrawer
 from qrcode.image.styles.colormasks import RadialGradiantColorMask
 import pandas as pd
 import matplotlib.pyplot as plt
+import dataframe_image as dfi
 
 def QRCode_generator(name):
     qr = qrcode.QRCode(
@@ -61,7 +62,9 @@ def printAllStudents(db_file, name):
     df_student = pd.DataFrame(time_start, index=None, columns=['Heure de début'])
     df_student.insert(1, 'Heure de fin', time_end, True)
     df_student.insert(2, "Nom de l'élève", students, True)
-    return df_student
+    dfi.export(df_student, './static/img/all_visits.png', max_rows=-1)
+    img = './static/img/all_visits.png'
+    return img
 
 def printTopEnteprise(db_file):
     db = open(db_file, "r")
@@ -77,9 +80,21 @@ def printTopEnteprise(db_file):
         nb_visits.append(nb_students)
     df_top_enterprise = pd.DataFrame(all_enterprise, index=None, columns=['Entreprise'])
     df_top_enterprise.insert(1, 'Nombre de visites', nb_visits)
-    df_top_enterprise = df_top_enterprise.sort_values(by='Nombre de visites', ascending=False)
+    df_top_enterprise = df_top_enterprise.sort_values(by='Nombre de visites', ascending=True)
     df_top_enterprise = df_top_enterprise.reset_index(drop=True)
-    return df_top_enterprise
+    top = df_top_enterprise.iloc[(len(df_top_enterprise['Entreprise']) - 1):len(df_top_enterprise['Entreprise']),:]
+    plt.switch_backend('Agg') 
+    plt.figure(figsize=(8,6))
+    plt.barh(df_top_enterprise['Entreprise'], df_top_enterprise['Nombre de visites'], color="#b37695")
+    plt.title("Nombre de visites par stand entreprise")
+    plt.xlabel("Entreprise")
+    plt.ylabel("Nombre de visites")
+    for i in range(len(df_top_enterprise['Entreprise'])):
+        plt.text(df_top_enterprise['Nombre de visites'][i]/2, i, round(df_top_enterprise['Nombre de visites'][i], 2), color="white")
+    plt.tight_layout()
+    img = "./static/img/top_enterprise.png"
+    plt.savefig(img)
+    return img, top
 
 def printAverage(db_file):
     db = open(db_file, "r")
@@ -97,14 +112,17 @@ def printAverage(db_file):
         average.append(note/nb_students)
     df_average = pd.DataFrame(all_enterprise, index=None, columns=['Entreprise'])
     df_average.insert(1, 'Moyenne appréciation', average, True)
-    df_average = df_average.sort_values(by='Moyenne appréciation')
+    df_average = df_average.sort_values(by='Moyenne appréciation', ascending=False)
     df_average = df_average.reset_index(drop=True)
     plt.switch_backend('Agg') 
     plt.figure(figsize=(12,6))
-    plt.bar(df_average['Entreprise'], df_average['Moyenne appréciation'])
+    plt.barh(df_average['Entreprise'], df_average['Moyenne appréciation'], color="#b37695")
     plt.title("Moyenne des notes d’appréciation par entreprise")
     plt.xlabel("Entreprise")
     plt.ylabel("Moyenne des notes")
+    plt.tight_layout()
+    for i in range(len(df_average['Entreprise'])):
+        plt.text(df_average['Moyenne appréciation'][i]/2, i, round(df_average['Moyenne appréciation'][i], 2), color="white")
     img = "./static/img/average_by_enterprise.png"
     plt.savefig(img)
     return img
@@ -129,10 +147,13 @@ def printPrcFreq(db_file):
     df_prc_freq = df_prc_freq.reset_index(drop=True)
     plt.switch_backend('Agg') 
     plt.figure(figsize=(12,6))
-    plt.barh(df_prc_freq['Entreprise'], df_prc_freq['Pourcentage de fréquentation'])
+    plt.bar(df_prc_freq['Entreprise'], df_prc_freq['Pourcentage de fréquentation'], color="#b37695")
     plt.title("Pourcentage de fréquentation par entreprise")
     plt.xlabel("Entreprise")
     plt.ylabel("Pourcentage de fréquentation")
+    plt.tight_layout()
+    for i in range(len(df_prc_freq['Entreprise'])):
+        plt.text(i, df_prc_freq['Pourcentage de fréquentation'][i]/2, str(round(df_prc_freq['Pourcentage de fréquentation'][i], 2)) + "%", ha='center', color="white")
     img = "./static/img/prcfreq_by_enterprise.png"
     plt.savefig(img)
     return img

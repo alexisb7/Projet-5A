@@ -2,5 +2,71 @@
 
 {% block content %}
     <h1>{% block title %} Dashboard {% endblock %}</h1>
+    <div id="top" style="margin-top: 20px;margin-left: 350px;">
+        <label>Entreprise la plus visitée : {{nom}}</label>
+        <label>, visité par {{nb_visits}} élèves</label>
+    </div>
+    <div id="graph">
+        <img src={{img}} style="display:flex;margin: auto;">
+    </div>
+    <div class="btn">
+        <a class="btn-download" href={{img}} download="{{img}}">Télécharger
+            <img src="/static/img/icons8-télécharger-30.png">
+        </a>
+        <a class="btn-print" href="javascript:window.print()">Imprimer
+            <img src="/static/img/icons8-impression-50.png">
+        </a>
+        <a class="btn-save" href="javascript:window.print()">Sauvegarder
+            <img src="/static/img/icons8-sauvegarder-50.png">
+        </a>
+    </div>
+    <style>
+        @media print {
+            h1 {
+                display: none;
+            }
+            .btn {
+                display: none;
+            }
+            .qrcode {
 
+                display: block;
+            }
+        }
+        a{
+
+            text-decoration: none;
+            color:white;
+        }
+        .btn{
+            margin-top: 20px;
+        }
+        .btn-download{
+            margin-left: 180px;
+            border-radius: 5px;
+            font-size: 30px;
+            width: fit-content;
+            color: white;
+            padding: 15px;
+            background-color: rgb(186,0,0);
+        }
+        .btn-print{
+            margin-left: 20px;
+            border-radius: 5px;
+            font-size: 30px;
+            width: fit-content;
+            color: white;
+            padding: 15px;
+            background-color: rgb(186,0,0);
+        }
+        .btn-save{
+            margin-left: 20px;
+            border-radius: 5px;
+            font-size: 30px;
+            width: fit-content;
+            color: white;
+            padding: 15px;
+            background-color: rgb(186,0,0);
+        }
+    </style>
 {% endblock %}

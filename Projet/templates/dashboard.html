@@ -7,8 +7,11 @@
             <label for="desc">Choisissez la vue du dashboard parmi celles proposées ci-dessous :</label>
         </div>
         <div class="form-group" style="margin-top:20px;margin-left: 300px;">
-            <input type="radio" value="prc_freq" name="dashboard">POURCENTAGE DE FRÉQUENTATION PAR ENTREPRISE<br>
-            <input type="radio" value="average" name="dashboard">MOYENNE DES APPRÉCIATIONS PAR ENTREPRISE<br>
+            <input type="radio" value="prc_freq" style="margin-top:20px;" name="dashboard" checked>POURCENTAGE DE FRÉQUENTATION PAR ENTREPRISE<br>
+            <input type="radio" value="average" style="margin-top:20px;" name="dashboard">MOYENNE DES APPRÉCIATIONS PAR ENTREPRISE<br>
+            <input type="radio" value="top_enterprise" style="margin-top:20px;" name="dashboard">ENTREPRISES LES PLUS VISITÉES<br>
+            <input type="radio" value="all_visits" style="margin-top:20px;" name="dashboard">TOUTES LES VISITES CHEZ : 
+            <input type="text" value="{{ request.form['entreprise'] }}" name="entreprise" placeholder="Nom de l'entreprise">
         </div>
         <button type="submit" class="btn btn-primary" style="margin-top:20px;margin-left: 500px;">Afficher</button>
     </form>
