@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, flash, redirect
+from flask import Flask, render_template, request, flash
 from script import QRCode_generator, QRCode_generator_logo, printAllStudents, printAverage, printPrcFreq, printTopEnteprise
 import pandas as pd
 
