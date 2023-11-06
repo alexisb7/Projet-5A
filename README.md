@@ -20,4 +20,4 @@ Pour exécuter l'application web, se placer dans le dossier 'Projet: cd 'Projet'
 
 Pour quitter l'application: control^C
 
-Pour désactiver l'environnement virtuel python: deactivate ou conda deactivate
+Pour désactiver l'environnement virtuel python: deactivate
