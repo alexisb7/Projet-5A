@@ -21,7 +21,7 @@ def QRCode_generator(name):
 
     img = qr.make_image(fill_color="White", back_color="Transparent", image_factory=StyledPilImage, module_drawer=RoundedModuleDrawer(), color_mask=RadialGradiantColorMask(back_color=(242,242,244),edge_color=(147,0,255),center_color=(186,0,0))).convert("RGB")
     name = name.upper()
-    file = "./static/img/QR_CODE_" + name + "_FORUM_CARRIERE_2022.png"
+    file = "./static/img/QR_CODE_" + name + "_FORUM_CARRIERE_2023.png"
     img.save(file)
     return file
 
@@ -43,7 +43,7 @@ def QRCode_generator_logo(name, logo):
     log_pos = ((img.size[0]-logo_display.size[0])//2, (img.size[1]-logo_display.size[1])//2)
     img.paste(logo_display, log_pos)
     name = name.upper()
-    file = "./static/img/QR_CODE_" + name + "_FORUM_CARRIERE_2022.png"
+    file = "./static/img/QR_CODE_" + name + "_FORUM_CARRIERE_2023.png"
     img.save(file)
     return file
 
@@ -69,6 +69,9 @@ def printAllStudents(db_file, name):
 def printTopEnteprise(db_file):
     db = open(db_file, "r")
     excel_file = db.read()
+    top = ""
+    if excel_file == '':
+        return "No valid database", top
     df_survey = pd.read_excel(excel_file)
     all_enterprise = list(set(df_survey["Nom de l'entreprise"]))
     nb_visits = []
@@ -99,6 +102,8 @@ def printTopEnteprise(db_file):
 def printAverage(db_file):
     db = open(db_file, "r")
     excel_file = db.read()
+    if excel_file == '':
+        return "No valid database"
     df_survey = pd.read_excel(excel_file)    
     all_enterprise = list(set(df_survey["Nom de l'entreprise"]))
     average = []
@@ -130,6 +135,8 @@ def printAverage(db_file):
 def printPrcFreq(db_file):    
     db = open(db_file, "r")
     excel_file = db.read()
+    if excel_file == '':
+        return "No valid database"
     df_survey = pd.read_excel(excel_file)
     all_enterprise = list(set(df_survey["Nom de l'entreprise"]))
     all_visitors = list(set(df_survey['Nom']))

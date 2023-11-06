@@ -28,6 +28,7 @@ def qrcode():
 def add_db():
     if request.method == "POST":
         excel_file = request.form['excel_file']
+        excel_file = excel_file.replace('"', '')
         file = open(db_file, "w")
         file.write(excel_file)
         file.close()
@@ -45,16 +46,28 @@ def dashboard():
             dashboard_to_display = request.form['dashboard']
             if dashboard_to_display=="prc_freq":
                 img = printPrcFreq(db_file)
-                return render_template('prc_freq.html', img=img)
+                if img == "No valid database":
+                    flash('Veuillez ajouter un fichier Excel existant en tant que base de données.', 'info')
+                    return render_template('dashboard.html')
+                else:
+                    return render_template('prc_freq.html', img=img)
             elif dashboard_to_display=="average":
                 img = printAverage(db_file)
-                return render_template('average.html', img=img)
+                if img == "No valid database":
+                    flash('Veuillez ajouter un fichier Excel existant en tant que base de données.', 'info')
+                    return render_template('dashboard.html')
+                else:
+                    return render_template('average.html', img=img)
             elif dashboard_to_display=="top_enterprise":
                 img, top = printTopEnteprise(db_file)
-                top = top.reset_index(drop=True)
-                nom = top['Entreprise'][0]
-                nb_visits = top['Nombre de visites'][0]
-                return render_template('top_enterprise.html', img=img, nom=nom, nb_visits=nb_visits)
+                if img == "No valid database":
+                    flash('Veuillez ajouter un fichier Excel existant en tant que base de données.', 'info')
+                    return render_template('dashboard.html')
+                else:
+                    top = top.reset_index(drop=True)
+                    nom = top['Entreprise'][0]
+                    nb_visits = top['Nombre de visites'][0]
+                    return render_template('top_enterprise.html', img=img, nom=nom, nb_visits=nb_visits)
             elif dashboard_to_display=="all_visits":
                 entreprise = request.form['entreprise']
                 df_survey = pd.read_excel(excel_file)
