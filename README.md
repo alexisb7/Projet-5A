@@ -4,7 +4,7 @@ Ouvrir un terminal/shell depuis un dossier prédéfini.
 
 Cloner le répertoire github dans ce dossier, taper : git clone https://github.com/alexisb7/Projet-5A.git
 
-Se placer dans le dossier 'Projet-5A' et créer un environnement virtuel python : cd 'Projet-5A' puis python -m venv webapp
+Se placer dans le dossier 'Projet-5A' et créer un environnement virtuel python : cd 'Projet-5A' puis python -m venv webapp ou python3 -m venv webapp
 
 Activer l'environnement virtuel python : 
 - Windows Powershell: webapp\Scripts\activate
@@ -19,4 +19,5 @@ Pour exécuter l'application web, se placer dans le dossier 'Projet: cd 'Projet'
 2. Démarrer l'application : commande 'flask run'
 
 Pour quitter l'application: control^C
-Pour désactiver l'environnement virtuel python: deactivate
+
+Pour désactiver l'environnement virtuel python: deactivate ou conda deactivate
