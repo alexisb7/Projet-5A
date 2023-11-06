@@ -1,15 +1,22 @@
 # Projet-5A
 
-Librairies python à importer:
-- qrcode
-- pillow
-- pandas
-- matplotlib
-- dataframe-image
-- flask
+Ouvrir un terminal/shell depuis un dossier prédéfini.
 
-Commande pour importer un package : pip3 install ['nom du package']
+Cloner le répertoire github dans ce dossier, taper : git clone https://github.com/alexisb7/Projet-5A.git
 
-Pour exécuter l'application web : ouvrir un terminal depuis le dossier 'Projet'
-- indiquer à flask l'application web à exécuter : commande 'export FLASK_APP=web-page.py"
-- exécuter l'application : commande 'flask run'
+Se placer dans le dossier 'Projet-5A' et créer un environnement virtuel python : cd 'Projet-5A' puis python -m venv webapp
+
+Activer l'environnement virtuel python : 
+- Windows Powershell: webapp\Scripts\activate
+- Terminal Linux (MacOS) : source webapp/bin/activate
+
+Télécharger les librairies python suivantes: pip3 install qrcode, pillow, pandas, matplotlib, dataframe_image, flask, openpyxl
+
+Pour exécuter l'application web, se placer dans le dossier 'Projet: cd 'Projet'
+1. Indiquer à flask l'application web à exécuter :
+   - Windows Powershell: set FLASK_APP=app.py
+   - Terminal Linux (MacOS) : export FLASK_APP=app.py
+2. Démarrer l'application : commande 'flask run'
+
+Pour quitter l'application: control^C
+Pour désactiver l'environnement virtuel python: deactivate
